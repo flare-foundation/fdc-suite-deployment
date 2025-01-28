@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 set -eu
 
-source <(grep -v '^#' "./.env" | sed -E 's|^(.+)=(.*)$|: ${\1=\2}; export \1|g')
+source <(
+    grep -v '^#' "./.env" |
+    sed -E 's|^([^=]+)=(.*)$|export \1="\2"|g'
+)
 
 config_files=(
     "verifiers/btc/database.env"
