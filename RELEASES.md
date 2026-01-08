@@ -2,6 +2,12 @@
 
 Important changes and upgrade notes will be listed in this file. Always read this file before updating to a new version of this deployment repo.
 
+## \[[v1.2.1](https://github.com/flare-foundation/fdc-suite-deployment/tree/v1.2.1)\] - 2026-01-08
+
+### Changed
+
+- updated web2 verifier image to `v1.3.1`
+
 ## \[[v1.2.0](https://github.com/flare-foundation/fdc-suite-deployment/tree/v1.2.0)\] - 2025-12-17
 
 ### Changed
