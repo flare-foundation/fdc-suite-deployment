@@ -1,6 +1,6 @@
 services:
   web2-verifier:
-    image: ghcr.io/flare-foundation/verifier-indexer-api:v1.3.0
+    image: ghcr.io/flare-foundation/verifier-indexer-api:v1.3.1
     container_name: web2-verifier
     restart: unless-stopped
     ports:
