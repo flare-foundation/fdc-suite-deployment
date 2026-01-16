@@ -2,7 +2,7 @@
 
 services:
   ripple-node:
-    image: flarefoundation/rippled:2.6.2-nonroot
+    image: flarefoundation/rippled:3.0.0-dless
     container_name: node-mainnet-xrp
     restart: unless-stopped
     ports:
