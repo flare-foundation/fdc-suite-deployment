@@ -25,7 +25,12 @@ services:
     restart: unless-stopped
     volumes:
       - ./config.toml:/app/config.toml
-
+      - ./init-config.sh:/app/init-config.sh
+    environment:
+      - FORCE_UPDATE_START_BLOCK=false
+      - DIFFERENCE_BLOCK_FORCE_CHANGE_START_BLOCK=300000
+    entrypoint: ["/bin/bash", "/app/init-config.sh"]
+    
   verifier:
     image: ghcr.io/flare-foundation/verifier-indexer-api:v1.2.2
     container_name: verifier-xrp-verifier
