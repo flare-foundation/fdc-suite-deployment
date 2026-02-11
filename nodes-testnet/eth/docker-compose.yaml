@@ -2,7 +2,7 @@
 
 services:
   geth:
-    image: ethereum/client-go:stable
+    image: ethereum/client-go:v1.16.8
     container_name: ethereum
     command:
       - --sepolia
@@ -22,7 +22,7 @@ services:
       - ./jwt.hex:/opt/ethereumd/.ethereum/jwt.hex
 
   beacon:
-    image: gcr.io/prysmaticlabs/prysm/beacon-chain:stable
+    image: gcr.io/offchainlabs/prysm/beacon-chain:v7.1.2
     container_name: beacon
     command:
       - --sepolia
