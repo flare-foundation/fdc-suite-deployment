@@ -2,7 +2,7 @@
 
 services:
   geth:
-    image: ethereum/client-go:v1.16.8
+    image: ethereum/client-go:v1.16.8@sha256:32d467632557e9bf38ff75ae48cfa6476487d0a1efba3fa7a3cf2f0a938ed8a9
     container_name: ethereum
     command:
       - --mainnet
@@ -22,7 +22,7 @@ services:
       - ./jwt.hex:/opt/ethereumd/.ethereum/jwt.hex
 
   beacon:
-    image: gcr.io/offchainlabs/prysm/beacon-chain:v7.1.2
+    image: gcr.io/offchainlabs/prysm/beacon-chain:v7.1.2@sha256:749f8a0f155a807c3540554a13d2f5adacbdbc98dd2a0d787ce00db6e233df27
     container_name: beacon
     command:
       - --mainnet

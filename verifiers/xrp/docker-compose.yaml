@@ -3,7 +3,7 @@ name: verifier-xrp
 services:
   database:
     container_name: verifier-xrp-database
-    image: postgres:16
+    image: postgres:16@sha256:468e1f126ca5af849799cda06ac9b03d8090aae9fa5163408b3e8da44fad0702
     env_file:
       - database.env
     ports:
@@ -18,7 +18,7 @@ services:
 
   indexer:
     container_name: verifier-xrp-indexer
-    image: ghcr.io/flare-foundation/verifier-xrp-indexer:v1.0.4
+    image: ghcr.io/flare-foundation/verifier-xrp-indexer:v1.0.4@sha256:4b3366ddb8a53e06886a34d0ab75e95822bde240760336d162a03c5616efde6f
     depends_on:
       database:
         condition: service_healthy
@@ -27,7 +27,7 @@ services:
       - ./config.toml:/app/config.toml
 
   verifier:
-    image: ghcr.io/flare-foundation/verifier-indexer-api:v1.2.2
+    image: ghcr.io/flare-foundation/verifier-indexer-api:v1.2.2@sha256:e8a94dd88276c0c06f44af561d9e3f06a42c405409c1002811015993cde377ca
     container_name: verifier-xrp-verifier
     env_file:
       - verifier.env

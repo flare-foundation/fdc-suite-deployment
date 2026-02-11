@@ -1,7 +1,7 @@
 name: verifier-doge
 
 x-django: &django
-  image: ghcr.io/flare-foundation/verifier-utxo-indexer:v1.0.2
+  image: ghcr.io/flare-foundation/verifier-utxo-indexer:v1.0.2@sha256:42b2f5b1af89cf28e437a04f7d7bbbd8dd8afc708c29f56102551eb9c717b909
   env_file:
     - indexer.env
   environment:
@@ -27,7 +27,7 @@ x-django-management: &django-management
 services:
   database:
     container_name: verifier-doge-database
-    image: postgres:16
+    image: postgres:16@sha256:468e1f126ca5af849799cda06ac9b03d8090aae9fa5163408b3e8da44fad0702
     env_file:
       - database.env
     ports:
@@ -41,7 +41,7 @@ services:
       start_interval: 2s
 
   verifier:
-    image: ghcr.io/flare-foundation/verifier-indexer-api:v1.2.2
+    image: ghcr.io/flare-foundation/verifier-indexer-api:v1.2.2@sha256:e8a94dd88276c0c06f44af561d9e3f06a42c405409c1002811015993cde377ca
     container_name: verifier-doge-verifier
     env_file:
       - verifier.env
