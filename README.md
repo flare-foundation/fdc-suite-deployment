@@ -11,7 +11,7 @@ EVM based chains (Ethereum, Flare, Songbird) use a verifier api server that dire
 - Blockchain nodes:
     - Bitcoin - [flarefoundation/bitcoin](https://hub.docker.com/r/flarefoundation/bitcoin)
     - Dogecoin - [flarefoundation/dogecoin](https://hub.docker.com/r/flarefoundation/dogecoin)
-    - Ripple - [flarefoundation/rippled](https://hub.docker.com/r/flarefoundation/rippled)
+    - Ripple - [flare-foundation/connected-chains-docker/rippled](https://github.com/flare-foundation/connected-chains-docker/pkgs/container/connected-chains-docker%2Frippled)
     - Ethereum - [ethereum/client-go](https://hub.docker.com/r/ethereum/client-go) and [prysm](https://docs.prylabs.network/docs/install/install-with-docker)
 
 - Indexers and verification servers for:
