@@ -2,6 +2,12 @@
 
 Important changes and upgrade notes will be listed in this file. Always read this file before updating to a new version of this deployment repo.
 
+## [Unreleased]
+
+### Changed
+
+- Updated Web2 verifier version to `v1.4.0`
+
 ## \[[v1.2.2](https://github.com/flare-foundation/fdc-suite-deployment/tree/v1.2.2)\] - 2026-01-16
 
 ### Changed
