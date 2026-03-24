@@ -2,7 +2,7 @@
 
 services:
   geth:
-    image: ethereum/client-go:v1.16.8@sha256:32d467632557e9bf38ff75ae48cfa6476487d0a1efba3fa7a3cf2f0a938ed8a9
+    image: ethereum/client-go:v1.17.1@sha256:66eee4d024e0f8ef180f1fa9578cfaccb5926d543f315f6d7d609a71aa644873
     container_name: ethereum
     command:
       - --sepolia
@@ -22,7 +22,7 @@ services:
       - ./jwt.hex:/opt/ethereumd/.ethereum/jwt.hex
 
   beacon:
-    image: gcr.io/offchainlabs/prysm/beacon-chain:v7.1.2@sha256:749f8a0f155a807c3540554a13d2f5adacbdbc98dd2a0d787ce00db6e233df27
+    image: gcr.io/offchainlabs/prysm/beacon-chain:v7.1.3@sha256:2d98a33e10265c9c91a9dce8cc694d69ce1032c94c8b185df06054d71926c062
     container_name: beacon
     command:
       - --sepolia
