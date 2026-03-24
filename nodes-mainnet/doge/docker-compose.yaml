@@ -2,7 +2,7 @@
 
 services:
   dogecoin-node:
-    image: flarefoundation/dogecoin:1.14.9-dless@sha256:a07f31426f946f2dc0f2f2eb1b293548994c38afc8ed5bf3d10e8101827e3a69
+    image: ghcr.io/flare-foundation/connected-chains-docker/dogecoind:v1.14.9@sha256:7314b6a42e626dbe125add01bf8aaff73935fb0373e60e0341013362f1dcd970
     container_name: node-mainnet-doge
     restart: unless-stopped
     ports:

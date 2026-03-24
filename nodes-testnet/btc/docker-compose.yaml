@@ -2,7 +2,7 @@
 
 services:
   bitcoin-node:
-    image: flarefoundation/bitcoin:30.0-dless@sha256:6e47b8d293fd1ea96772e641c53b534b7ec94504d83188b689392259816d7ca4
+    image: ghcr.io/flare-foundation/connected-chains-docker/bitcoind:v30.0@sha256:597de43e5354326449af50b2d60484344ad6208ed3f81be74373cdd7f83d3e6b
     container_name: node-testnet-btc
     restart: unless-stopped
     ports:
