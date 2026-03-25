@@ -2,11 +2,14 @@
 
 Important changes and upgrade notes will be listed in this file. Always read this file before updating to a new version of this deployment repo.
 
-## [Unreleased]
+## \[[v1.2.3](https://github.com/flare-foundation/fdc-suite-deployment/tree/v1.2.3)\] - 2026-03-25
 
 ### Changed
 
+- updated ripple node to `3.1.2`
+- changed registry for all node images to ghcr (https://github.com/flare-foundation/connected-chains-docker)
 - Updated Web2 verifier version to `v1.4.0`
+- tagged all container images with digest hashes
 
 ## \[[v1.2.2](https://github.com/flare-foundation/fdc-suite-deployment/tree/v1.2.2)\] - 2026-01-16
 
