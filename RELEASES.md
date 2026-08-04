@@ -2,6 +2,30 @@
 
 Important changes and upgrade notes will be listed in this file. Always read this file before updating to a new version of this deployment repo.
 
+## Unreleased
+
+### Added
+
+- added four SGB FDC2 verifier services using `go-verifier-api`
+- added a default-enabled SGB C-chain indexer only for FDC2 verifiers
+
+### Update notes
+
+Add the new `FDC2_SGB_*` variables from `.env.example` to your `.env`, ensure every `VERIFIER_API_KEYS` entry is at least 16 characters, and run `./generate-config.sh`.
+
+The embedded C-chain indexer is enabled by default and creates a persistent MySQL volume containing 15 days of `TeeInstructionsSent` logs. It could take up to 1 hour to catch up. To use an external C-chain indexer database, leave `FDC2_SGB_COMPOSE_PROFILES` empty, set `FDC2_SGB_CCHAIN_DATABASE_URL` to the external MySQL DSN, and regenerate the configuration.
+
+The XRP indexer database defaults to local mode. This means that FDC2 verifiers will connect directly to XRP verifier's docker compose network. Start `verifiers/xrp/` before `fdc2-verifiers/sgb/` so its `verifier-xrp_default` network exists. For a remote XRP indexer, set `FDC2_SGB_XRP_DATABASE_MODE=external`, set `FDC2_SGB_XRP_EXTERNAL_DATABASE_URL` to the external PostgreSQL DSN, and regenerate the configuration.
+
+FDC2 verifiers run on separate ports for each type. Example FDC client configuration for FDC2 verifier URLs:
+
+```
+TEE_TEEAVAILABILITYCHECK_URL=http://<fdc2-verifier-host>:9901/verifier/tee/TeeAvailabilityCheck/verify
+XRP_PMWMULTISIGACCOUNTCONFIGURED_URL=http://<fdc2-verifier-host>:9902/verifier/xrp/PMWMultisigAccountConfigured/verify
+XRP_PMWPAYMENTSTATUS_URL=http://<fdc2-verifier-host>:9903/verifier/xrp/PMWPaymentStatus/verify
+XRP_PMWFEEPROOF_URL=http://<fdc2-verifier-host>:9904/verifier/xrp/PMWFeeProof/verify
+```
+
 ## \[[v1.3.3](https://github.com/flare-foundation/fdc-suite-deployment/tree/v1.3.3)\] - 2026-07-13
 
 ### Changed

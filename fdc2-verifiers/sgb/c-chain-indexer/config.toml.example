@@ -1,0 +1,18 @@
+[indexer]
+num_parallel_req = 100
+batch_size = 1000
+log_range = 10
+new_block_check_millis = 1000
+
+[[indexer.collect_logs]]
+contract_address = "${FDC2_SGB_FLARE_TEE_MANAGER_CONTRACT_ADDRESS}"
+topic = "0xf770e69a9fc05b7180797556ec4cedb6108ce2c56ffa76c84aa087efeb5e6963"
+
+[db]
+log_queries = false
+drop_table_at_start = false
+history_drop = 1296000 # 15 days
+
+[logger]
+level = "INFO"
+console = true
