@@ -2,7 +2,7 @@
 
 Important changes and upgrade notes will be listed in this file. Always read this file before updating to a new version of this deployment repo.
 
-## Unreleased
+## \[[v1.4.0](https://github.com/flare-foundation/fdc-suite-deployment/tree/v1.4.0)\] - 2026-08-04
 
 ### Added
 
@@ -13,9 +13,11 @@ Important changes and upgrade notes will be listed in this file. Always read thi
 
 Add the new `FDC2_SGB_*` variables from `.env.example` to your `.env`, ensure every `VERIFIER_API_KEYS` entry is at least 16 characters, and run `./generate-config.sh`.
 
-The embedded C-chain indexer is enabled by default and creates a persistent MySQL volume containing 15 days of `TeeInstructionsSent` logs. It could take up to 1 hour to catch up. To use an external C-chain indexer database, leave `FDC2_SGB_COMPOSE_PROFILES` empty, set `FDC2_SGB_CCHAIN_DATABASE_URL` to the external MySQL DSN, and regenerate the configuration.
+The embedded C-chain indexer is enabled by default and creates a persistent MySQL volume containing 15 days of `TeeInstructionsSent` logs. It could take up to 1 hour to catch up. To use the internal C-chain indexer, leave `FDC2_SGB_CCHAIN_DATABASE_URL` as configured in `.env.example`. To use an external C-chain indexer database, leave `FDC2_SGB_COMPOSE_PROFILES` empty, set `FDC2_SGB_CCHAIN_DATABASE_URL` to the external MySQL DSN, and regenerate the configuration.
 
 The XRP indexer database defaults to local mode. This means that FDC2 verifiers will connect directly to XRP verifier's docker compose network. Start `verifiers/xrp/` before `fdc2-verifiers/sgb/` so its `verifier-xrp_default` network exists. For a remote XRP indexer, set `FDC2_SGB_XRP_DATABASE_MODE=external`, set `FDC2_SGB_XRP_EXTERNAL_DATABASE_URL` to the external PostgreSQL DSN, and regenerate the configuration.
+
+After configuration, run `docker-compose up -d` in `fdc2-verifiers/sgb/`.
 
 FDC2 verifiers run on separate ports for each type. Example FDC client configuration for FDC2 verifier URLs:
 
