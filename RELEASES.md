@@ -2,6 +2,12 @@
 
 Important changes and upgrade notes will be listed in this file. Always read this file before updating to a new version of this deployment repo.
 
+## \[[v1.4.2](https://github.com/flare-foundation/fdc-suite-deployment/tree/v1.4.2)\] - 2026-08-25
+
+### Changed
+
+- updated xrpl node to `3.3.0`
+
 ## \[[v1.4.1](https://github.com/flare-foundation/fdc-suite-deployment/tree/v1.4.1)\] - 2026-08-05
 
 ### Changed
