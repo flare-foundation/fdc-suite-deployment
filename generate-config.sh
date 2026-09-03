@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -eu
 
+# shellcheck source=/dev/null
 source <(
     grep -v '^#' "./.env" |
     sed -E 's|^([^=]+)=(.*)$|export \1="\2"|g'
