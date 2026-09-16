@@ -46,8 +46,7 @@ config_files=(
     "fdc2-verifiers/sgb/c-chain-indexer/config.toml"
     "fdc2-verifiers/sgb/verifier.env"
     "fdc2-verifiers/sgb/tee.env"
-    "fdc2-verifiers/sgb/pmw-multisig.env"
-    "fdc2-verifiers/sgb/pmw-indexed.env"
+    "fdc2-verifiers/sgb/xrp.env"
 )
 
 for config_file in "${config_files[@]}"; do

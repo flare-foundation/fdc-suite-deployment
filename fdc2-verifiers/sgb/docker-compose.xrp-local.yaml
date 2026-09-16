@@ -1,10 +1,5 @@
 services:
-  verifier_pmw_payment_status:
-    networks:
-      - default
-      - xrp-indexer
-
-  verifier_pmw_fee_proof:
+  verifier_xrp:
     networks:
       - default
       - xrp-indexer
