@@ -2,6 +2,37 @@
 
 Important changes and upgrade notes will be listed in this file. Always read this file before updating to a new version of this deployment repo.
 
+## [Unreleased]
+
+### Changed
+
+- updated SGB FDC2 verifiers to `go-verifier-api:v0.1.0`, with one TEE service and one XRP service
+- updated SGB FDC2 C-chain indexer to `flare-system-c-chain-indexer:v2.0.2`
+- added `network_id` to xrpl node config
+
+### Update notes
+
+Recommended upgrade procedure for FDC2 verifiers:
+
+1. In `fdc2-verifiers/sgb/`, stop the old deployment with `docker compose down` before updating this deployment repo.
+2. Pull or update this repository.
+3. Add new variables from `.env.example` to your `.env`.
+4. Run `./generate-config.sh` from the repository root.
+5. In `fdc2-verifiers/sgb/`, start the new FDC2 verifiers with `docker compose up -d`.
+6. Restart the xrpl node to apply the updated config.
+
+URLs for all FDC2 XRP attestation types have changed. They now share port `9902` and include destination chain as part of the URL. Update clients to use `/verifier/<source>/<destination>/<attestation-type>/verify`. The previous routes and ports `9903` and `9904` are no longer available. The TEE verifier remains on port `9901`.
+
+Example FDC client configuration for new FDC2 verifier URLs:
+
+```
+TEE_TEEAVAILABILITYCHECK_URL=http://<fdc2-verifier-host>:9901/verifier/tee/sgb/TeeAvailabilityCheck/verify
+XRP_PMWMULTISIGACCOUNTCONFIGURED_URL=http://<fdc2-verifier-host>:9902/verifier/xrp/sgb/PMWMultisigAccountConfigured/verify
+XRP_PMWPAYMENTSTATUS_URL=http://<fdc2-verifier-host>:9902/verifier/xrp/sgb/PMWPaymentStatus/verify
+XRP_PMWFEEPROOF_URL=http://<fdc2-verifier-host>:9902/verifier/xrp/sgb/PMWFeeProof/verify
+```
+
+
 ## \[[v1.4.2](https://github.com/flare-foundation/fdc-suite-deployment/tree/v1.4.2)\] - 2026-08-25
 
 ### Changed

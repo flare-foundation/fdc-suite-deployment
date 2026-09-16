@@ -167,17 +167,17 @@ Set `VERIFIER_API_KEYS` to api keys that will have access to verifier api server
 
 EVM verifiers run one verifier API instance per EVM chain. `ETH_NODE_URL`, `FLR_NODE_URL`, and `SGB_NODE_URL` configure the RPC endpoints.
 
-FDC2 verifiers are deployed separately for each Flare chain. The current deployment in `fdc2-verifiers/sgb/` serves SGB and runs one API instance per attestation type. `TeeAvailabilityCheck`, `PMWPaymentStatus`, and `PMWFeeProof` use the SGB RPC configured by `SGB_NODE_URL`. `PMWMultisigAccountConfigured` uses `XRP_NODE_URL`. The payment-status and fee-proof services additionally require PostgreSQL and MySQL databases populated by [verifier-xrp-indexer](https://github.com/flare-foundation/verifier-xrp-indexer) and [flare-system-c-chain-indexer](https://github.com/flare-foundation/flare-system-c-chain-indexer).
+FDC2 verifiers are deployed separately for each Flare chain. The current deployment in `fdc2-verifiers/sgb/` serves SGB with one API instance per source. The TEE instance serves `TeeAvailabilityCheck` through the SGB RPC configured by `SGB_NODE_URL`. The XRP instance serves `PMWMultisigAccountConfigured`, `PMWPaymentStatus`, and `PMWFeeProof`; it uses both `XRP_NODE_URL` and `SGB_NODE_URL`. The payment-status and fee-proof services additionally require PostgreSQL and MySQL databases populated by [verifier-xrp-indexer](https://github.com/flare-foundation/verifier-xrp-indexer) and [flare-system-c-chain-indexer](https://github.com/flare-foundation/flare-system-c-chain-indexer). `FDC2_SGB_DESTINATION_CHAIN_URL_SLUG` identifies this deployment in verifier URLs and defaults to `sgb`.
 
 The SGB deployment enables its dedicated MySQL database and C-chain indexer by default through `FDC2_SGB_COMPOSE_PROFILES=c-chain-indexer`. The indexer retains 15 days of history and collects only `TeeInstructionsSent` logs from `FDC2_SGB_FLARE_TEE_MANAGER_CONTRACT_ADDRESS`. MySQL is available only inside the Compose network and does not publish a host port.
 
-To use an external C-chain indexer database, set `FDC2_SGB_COMPOSE_PROFILES` to an empty value and replace `FDC2_SGB_CCHAIN_DATABASE_URL` with the external MySQL DSN. Run `./generate-config.sh` again after changing either value. The four verifier services remain enabled when the embedded indexer profile is disabled.
+To use an external C-chain indexer database, set `FDC2_SGB_COMPOSE_PROFILES` to an empty value and replace `FDC2_SGB_CCHAIN_DATABASE_URL` with the external MySQL DSN. Run `./generate-config.sh` again after changing either value. Both verifier services remain enabled when the embedded indexer profile is disabled.
 
-By default, `FDC2_SGB_XRP_DATABASE_MODE=local` attaches the payment-status and fee-proof services to the existing `verifier-xrp_default` Docker network and connects to its `database` service directly using `XRP_DB_PASSWORD`. Start `verifiers/xrp/` before the SGB FDC2 project. To use a remote XRP indexer database instead, set the mode to `external` and set `FDC2_SGB_XRP_EXTERNAL_DATABASE_URL` to its PostgreSQL DSN. Regenerating the configuration selects the appropriate Compose file and database URL automatically.
+By default, `FDC2_SGB_XRP_DATABASE_MODE=local` attaches the XRP verifier service to the existing `verifier-xrp_default` Docker network and connects to its `database` service directly using `XRP_DB_PASSWORD`. Start `verifiers/xrp/` before the SGB FDC2 project. To use a remote XRP indexer database instead, set the mode to `external` and set `FDC2_SGB_XRP_EXTERNAL_DATABASE_URL` to its PostgreSQL DSN. Regenerating the configuration selects the appropriate Compose file and database URL automatically.
 
-Set `FDC2_SGB_XRP_SOURCE_ID` to `XRP` for mainnet or `testXRP` for testnet. `FDC2_SGB_CHAIN_ID` must be the network's non-zero base-10 EVM chain ID, and the three `FDC2_SGB_*_CONTRACT_ADDRESS` values must match the network served by `SGB_NODE_URL`. The FDC2 verifier API requires every `VERIFIER_API_KEYS` entry to contain at least 16 characters.
+Set `FDC2_SGB_XRP_SOURCE_ID` to `XRP` for mainnet or `testXRP` for testnet. `FDC2_SGB_CHAIN_ID` must be the network's non-zero base-10 EVM chain ID, and the three current `FDC2_SGB_*_CONTRACT_ADDRESS` values must match the network served by `SGB_NODE_URL`. The FDC2 verifier API requires every `VERIFIER_API_KEYS` entry to contain at least 16 characters.
 
-The example configuration includes the current SGB chain ID, Relay, FlareTeeManager, and TeePayments addresses. Confirm these values against the target SGB deployment when contracts are upgraded.
+The example configuration includes the current SGB chain ID, Relay, FlareTeeManager, and TeePayments addresses. `tee.env.example` also supports the optional Relay-cutover pair. Leave both values empty until the cutover reward epoch is announced, then set both the replacement Relay address and the exact epoch. The epoch must match tee-relay-client, FDC, and FSP configuration. Keep the old Relay address configured through the cutover so historical signing-policy lookups remain available.
 
 ### 2.3 Generating configs for indexers and verifiers
 
@@ -206,7 +206,7 @@ cd into correct directory (example `verifiers/btc`) and run `docker compose up -
 
 Do this for all verifiers you plan to run on the current server.
 
-The SGB FDC2 Compose project starts four verifier services. By default, it also starts the profiled C-chain indexer and its MySQL database:
+The SGB FDC2 Compose project starts TEE and XRP verifier services. By default, it also starts the profiled C-chain indexer and its MySQL database:
 
 After generating the configuration, start them with `cd fdc2-verifiers/sgb && docker compose up -d`. In local XRP database mode, first start `verifiers/xrp/` so the `verifier-xrp_default` network exists. Stop the SGB FDC2 project before stopping XRP so Docker can remove the XRP network cleanly.
 
@@ -214,12 +214,12 @@ After generating the configuration, start them with `cd fdc2-verifiers/sgb && do
 | --- | --- | --- |
 | `9901` | `TeeAvailabilityCheck` | `TEE` |
 | `9902` | `PMWMultisigAccountConfigured` | `XRP` or `testXRP` |
-| `9903` | `PMWPaymentStatus` | `XRP` or `testXRP` |
-| `9904` | `PMWFeeProof` | `XRP` or `testXRP` |
+| `9902` | `PMWPaymentStatus` | `XRP` or `testXRP` |
+| `9902` | `PMWFeeProof` | `XRP` or `testXRP` |
 
-The liveness endpoint for each service is `/api/health`; it does not check RPC or database availability. The verifier endpoints use `/verifier/<lowercase-source>/<attestation-type>/verify` and require the `X-API-KEY` header.
+The liveness endpoint for each verifier service is `/api/health`; it does not check RPC or database availability. The verifier endpoints use `/verifier/<lowercase-source>/<destination-slug>/<attestation-type>/verify` and require the `X-API-KEY` header. The SGB destination slug is `sgb`.
 
-On the first start, wait for the C-chain indexer to catch up before routing payment-status or fee-proof requests. The stable indexer image has no readiness endpoint; monitor `docker compose logs c-chain-indexer` for its indexed block progress. The indexed data persists in the `c-chain-indexer-database` volume. Removing that volume requires a complete 15-day reindex.
+On the first start, wait for the C-chain indexer to catch up before routing payment-status or fee-proof requests. Its `/health` endpoint returns `503` during catchup and `200` once continuous indexing begins; `docker compose ps` reports this as the service health. The indexed data persists in the `c-chain-indexer-database` volume. Removing that volume starts a complete 15-day resync.
 
 ## Step 4: Updates
 
