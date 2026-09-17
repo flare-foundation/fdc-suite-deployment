@@ -1,7 +1,7 @@
 name: fdc2-verifier-sgb
 
 x-verifier: &verifier
-  image: ghcr.io/flare-foundation/go-verifier-api:v0.1.0@sha256:a249c6cf1e37ca8b4c8249e0ec49de6334a89a3cc68969ca320e2d7e86c48506
+  image: ghcr.io/flare-foundation/go-verifier-api:v0.2.0@sha256:10208e4b7672bb6e1892a9813f0020d63b45d5af4e1e29a207ffe7a371ce0d53
   restart: unless-stopped
   healthcheck:
     test: ["CMD", "curl", "--fail", "--silent", "--show-error", "http://localhost:3120/api/health"]
