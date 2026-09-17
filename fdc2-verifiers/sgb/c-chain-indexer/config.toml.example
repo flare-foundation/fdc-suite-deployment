@@ -1,10 +1,12 @@
 [indexer]
-mode = "full"
-rpc_concurrency = 25
-batch_size = 1000
-log_range = 1000
-new_block_check_millis = 1000
+mode = "full" # indexes every block in the db.history_drop window; the log filter below is configured explicitly
+rpc_concurrency = 25 # max simultaneous RPC calls of any kind (blocks, receipts, eth_getLogs, contract calls) across the whole process; raise for a dedicated node, lower if it rate-limits
+batch_size = 1000 # blocks fetched and committed per batch, in one DB transaction
+log_range = 1000 # max blocks per eth_getLogs request; set to your node's getLogs cap
+new_block_check_millis = 1000 # interval for checking for new blocks
 
+
+# Full mode has no built-in filters: the log filter below is the only thing collected besides block rows.
 [[indexer.collect_logs]]
 contract_address = "0x5C2dE0DeFC3FDBbF8e12c12bD0b1629Ed37DC767"
 topic = "0xf770e69a9fc05b7180797556ec4cedb6108ce2c56ffa76c84aa087efeb5e6963"
