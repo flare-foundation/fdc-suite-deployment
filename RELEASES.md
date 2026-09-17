@@ -2,24 +2,33 @@
 
 Important changes and upgrade notes will be listed in this file. Always read this file before updating to a new version of this deployment repo.
 
-## [Unreleased]
+## \[[v1.4.3](https://github.com/flare-foundation/fdc-suite-deployment/tree/v1.4.3)\] - 2026-09-17
 
 ### Changed
 
-- updated SGB FDC2 verifiers to `go-verifier-api:v0.1.0`, with one TEE service and one XRP service
+- updated SGB FDC2 verifiers to `go-verifier-api:v0.2.0`, with one TEE service and one XRP service
 - updated SGB FDC2 C-chain indexer to `flare-system-c-chain-indexer:v2.0.2`
 - added `network_id` to xrpl node config
+- moved the variables specific to SGB network out of the root `.env` file and directly into fdc2 verifiers' config.
 
 ### Update notes
+
+FDC2 verifiers now only run 2 containers instead of 4.
 
 Recommended upgrade procedure for FDC2 verifiers:
 
 1. In `fdc2-verifiers/sgb/`, stop the old deployment with `docker compose down` before updating this deployment repo.
 2. Pull or update this repository.
-3. Add new variables from `.env.example` to your `.env`.
-4. Run `./generate-config.sh` from the repository root.
-5. In `fdc2-verifiers/sgb/`, start the new FDC2 verifiers with `docker compose up -d`.
-6. Restart the xrpl node to apply the updated config.
+3. Run `./generate-config.sh` from the repository root.
+4. In `fdc2-verifiers/sgb/`, start the new FDC2 verifiers with `docker compose up -d`.
+5. Restart the xrpl node to apply the updated config.
+6. Remove old unused variables from your `.env` file. They are now set in the `fdc2-verifiers/sgb/` env example files:
+    - `FDC2_SGB_XRP_SOURCE_ID`
+    - `FDC2_SGB_CHAIN_ID`
+    - `FDC2_SGB_RELAY_CONTRACT_ADDRESS`
+    - `FDC2_SGB_FLARE_TEE_MANAGER_CONTRACT_ADDRESS`
+    - `FDC2_SGB_TEE_PAYMENTS_CONTRACT_ADDRESS`
+7. Delete the old unused generated config files, `fdc2-verifiers/sgb/pmw-multisig.env` and `fdc2-verifiers/sgb/pmw-indexed.env`. `./generate-config.sh` no longer writes them, but it does not remove them automatically.
 
 URLs for all FDC2 XRP attestation types have changed. They now share port `9902` and include destination chain as part of the URL. Update clients to use `/verifier/<source>/<destination>/<attestation-type>/verify`. The previous routes and ports `9903` and `9904` are no longer available. The TEE verifier remains on port `9901`.
 
