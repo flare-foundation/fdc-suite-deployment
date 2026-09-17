@@ -6,7 +6,7 @@ log_range = 1000
 new_block_check_millis = 1000
 
 [[indexer.collect_logs]]
-contract_address = "${FDC2_SGB_FLARE_TEE_MANAGER_CONTRACT_ADDRESS}"
+contract_address = "0x5C2dE0DeFC3FDBbF8e12c12bD0b1629Ed37DC767"
 topic = "0xf770e69a9fc05b7180797556ec4cedb6108ce2c56ffa76c84aa087efeb5e6963"
 
 [db]
