@@ -1,14 +1,14 @@
 name: fdc2-verifier-sgb
 
+x-verifier-healthcheck: &verifier-healthcheck
+  interval: 30s
+  timeout: 5s
+  retries: 3
+  start_period: 10s
+
 x-verifier: &verifier
   image: ghcr.io/flare-foundation/go-verifier-api:v0.2.0@sha256:10208e4b7672bb6e1892a9813f0020d63b45d5af4e1e29a207ffe7a371ce0d53
   restart: unless-stopped
-  healthcheck:
-    test: ["CMD", "curl", "--fail", "--silent", "--show-error", "http://localhost:3120/api/health"]
-    interval: 30s
-    timeout: 5s
-    retries: 3
-    start_period: 10s
 
 volumes:
   c-chain-indexer-database:
@@ -54,6 +54,9 @@ services:
     env_file:
       - verifier.env
       - tee.env
+    healthcheck:
+      <<: *verifier-healthcheck
+      test: ["CMD-SHELL", "curl --fail --silent --show-error http://127.0.0.1:3120/verifier/tee/$${DESTINATION_CHAIN_URL_SLUG}/api/health"]
     ports:
       - "9901:3120"
 
@@ -62,5 +65,8 @@ services:
     env_file:
       - verifier.env
       - xrp.env
+    healthcheck:
+      <<: *verifier-healthcheck
+      test: ["CMD-SHELL", "curl --fail --silent --show-error http://127.0.0.1:3120/verifier/xrp/$${DESTINATION_CHAIN_URL_SLUG}/api/health"]
     ports:
       - "9902:3120"
