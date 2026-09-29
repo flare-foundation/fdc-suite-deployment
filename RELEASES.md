@@ -2,6 +2,16 @@
 
 Important changes and upgrade notes will be listed in this file. Always read this file before updating to a new version of this deployment repo.
 
+## Unreleased
+
+### Changed
+
+- updated xrpl node to `3.4.1`
+
+### Update notes
+
+The xrpl node now uses the `ghcr.io/flare-foundation/connected-chains-docker/xrpl-deb` image, which is built from official binaries instead of from source. xrpld `3.4.1` is a security release and its source code is not yet public.
+
 ## \[[v1.4.3](https://github.com/flare-foundation/fdc-suite-deployment/tree/v1.4.3)\] - 2026-09-17
 
 ### Changed
