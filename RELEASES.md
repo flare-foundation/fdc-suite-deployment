@@ -2,6 +2,16 @@
 
 Important changes and upgrade notes will be listed in this file. Always read this file before updating to a new version of this deployment repo.
 
+## Unreleased
+
+### Changed
+
+- removed the web2 verifier
+
+### Update notes
+
+The `web2-verifier/` directory is removed from this repository. If you run the web2 verifier, stop it with `docker compose down` in `web2-verifier/` before updating this deployment repo. After updating, remove the `WEB2_IGNITE_API_KEY` and `WEB2_SOURCE_IDS` variables from your `.env` file and delete the leftover `web2-verifier/verifier.env`.
+
 ## \[[v1.4.4](https://github.com/flare-foundation/fdc-suite-deployment/tree/v1.4.4)\] - 2026-09-30
 
 ### Changed

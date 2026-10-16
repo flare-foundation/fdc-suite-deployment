@@ -21,8 +21,6 @@ EVM based chains (Ethereum, Flare, Songbird) use a verifier api server that dire
 
 - EVM verifier - [flare-foundation/verifier-indexer-api](https://github.com/flare-foundation/verifier-indexer-api)
 
-- Web2 verifier [flare-foundation/verifier-indexer-api](https://github.com/flare-foundation/verifier-indexer-api)
-
 - FDC2 verifier - [flare-foundation/go-verifier-api](https://github.com/flare-foundation/go-verifier-api)
 
 EVM verifier also requires FLR and SGB nodes, which are not part of this repository.
@@ -46,24 +44,6 @@ The minimal hardware requirements for a complete `mainnet` configuration are:
 - MEMORY: 64 GB
 
 If you don't want to deploy everything on a single server, separate components can be deployed on different servers. In that case the requirements for a single server can be lower.
-
-### Web2 Verifier
-
-It is strongly recommended to deploy the Web2 verifier to a standalone server as under heavy load it might impact the performance of other components. Hardware recommendations:
-
-- CPU: 4 cores @ 2.2GHz
-- DISK: n/a
-- MEMORY: 8 GB
-
-Alternatively, it could be run on the same machine with resource restrictions added to the Docker container:
-```yaml
-services:
-  verifier_web2:
-    ...
-    cpus: 4 # Should be less than 50% of available cpus
-    mem_limit: 2048m
-    ...
-```
 
 ## Software Requirements
 
@@ -189,7 +169,6 @@ This script uses the values from `.env` and generates config files from `*.examp
 - verifiers/doge/
 - verifiers/xrp/
 - evm-verifier/
-- web2-verifier/
 - fdc2-verifiers/sgb/
 
 ## Step 3: Running

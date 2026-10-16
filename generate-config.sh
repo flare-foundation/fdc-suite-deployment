@@ -39,7 +39,6 @@ config_files=(
     "evm-verifier/verifier-eth.env"
     "evm-verifier/verifier-flr.env"
     "evm-verifier/verifier-sgb.env"
-    "web2-verifier/verifier.env"
     "fdc2-verifiers/sgb/.env"
     "fdc2-verifiers/sgb/c-chain-indexer/database.env"
     "fdc2-verifiers/sgb/c-chain-indexer/indexer.env"
