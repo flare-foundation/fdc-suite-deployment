@@ -21,4 +21,3 @@ rpc_timeout_millis = 5000
 
 [logger]
 level = "INFO"
-console = true

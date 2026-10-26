@@ -7,10 +7,17 @@ Important changes and upgrade notes will be listed in this file. Always read thi
 ### Changed
 
 - removed the web2 verifier
+- updated BTC, DOGE, XRP and EVM verifiers to `verifier-indexer-api:v1.7.0`
+- updated BTC and DOGE indexers to `verifier-utxo-indexer:v1.1.2`
+- updated XRP indexer to `verifier-xrp-indexer:v2.1.1`
+- updated SGB FDC2 verifiers to `go-verifier-api:v0.2.3`
+- updated SGB FDC2 C-chain indexer to `flare-system-c-chain-indexer:v2.1.0`
 
 ### Update notes
 
 The `web2-verifier/` directory is removed from this repository. If you run the web2 verifier, stop it with `docker compose down` in `web2-verifier/` before updating this deployment repo. After updating, remove the `WEB2_IGNITE_API_KEY` and `WEB2_SOURCE_IDS` variables from your `.env` file and delete the leftover `web2-verifier/verifier.env`.
+
+The XRP verifier changes how `BalanceDecreasingTransaction` derives the standard payment reference for XRP transactions from the start of Flare voting round 1508840 on mainnet. Update the XRP verifier before that round.
 
 ## \[[v1.4.4](https://github.com/flare-foundation/fdc-suite-deployment/tree/v1.4.4)\] - 2026-09-30
 

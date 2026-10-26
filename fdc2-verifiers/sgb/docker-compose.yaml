@@ -7,7 +7,7 @@ x-verifier-healthcheck: &verifier-healthcheck
   start_period: 10s
 
 x-verifier: &verifier
-  image: ghcr.io/flare-foundation/go-verifier-api:v0.2.0@sha256:10208e4b7672bb6e1892a9813f0020d63b45d5af4e1e29a207ffe7a371ce0d53
+  image: ghcr.io/flare-foundation/go-verifier-api:v0.2.3@sha256:5edbcfb463610116fcbeb0428cc3289949c4c45dc3dc237ee1b295488edc49e6
   restart: unless-stopped
 
 volumes:
@@ -30,7 +30,7 @@ services:
       retries: 10
 
   c-chain-indexer:
-    image: ghcr.io/flare-foundation/flare-system-c-chain-indexer:v2.0.2@sha256:4f5bb1e00b3e0b5f1dfb45670247505bdc7a0fee27df72f3e6bc57d5ac58a29f
+    image: ghcr.io/flare-foundation/flare-system-c-chain-indexer:v2.1.0@sha256:c5f2e15b03c74bfe4d6c6c5c89a082655f6ae8b8e4fa7381029c2d48ad8bcdee
     profiles: [c-chain-indexer]
     env_file:
       - c-chain-indexer/indexer.env

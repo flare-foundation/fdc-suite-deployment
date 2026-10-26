@@ -1,7 +1,7 @@
 name: verifier-doge
 
 x-django: &django
-  image: ghcr.io/flare-foundation/verifier-utxo-indexer:v1.1.1@sha256:466c6936aadf6538d6d1f676b909e2bc979d17f49bce52cbadd37f0d9526712a
+  image: ghcr.io/flare-foundation/verifier-utxo-indexer:v1.1.2@sha256:87bf6348d24f1a673368f620a19460f59f0911430cffce860592cf12cfb978ff
   env_file:
     - indexer.env
   environment:
@@ -42,7 +42,7 @@ services:
       start_interval: 2s
 
   verifier:
-    image: ghcr.io/flare-foundation/verifier-indexer-api:v1.6.1@sha256:5bd9717dad96aca2f119eb95304857f8a0bfa1b4d196ef1aaa0889cc490dcc50
+    image: ghcr.io/flare-foundation/verifier-indexer-api:v1.7.0@sha256:8b52123fc0e6232ecfbc51ab6011af7edb612fc843024264fc6d898ebd75a4cb
     container_name: verifier-doge-verifier
     env_file:
       - verifier.env

@@ -1,5 +1,5 @@
 x-verifier: &verifier
-  image: ghcr.io/flare-foundation/verifier-indexer-api:v1.6.1@sha256:5bd9717dad96aca2f119eb95304857f8a0bfa1b4d196ef1aaa0889cc490dcc50
+  image: ghcr.io/flare-foundation/verifier-indexer-api:v1.7.0@sha256:8b52123fc0e6232ecfbc51ab6011af7edb612fc843024264fc6d898ebd75a4cb
   restart: unless-stopped
 
 services:
