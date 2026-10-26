@@ -17,7 +17,7 @@ Important changes and upgrade notes will be listed in this file. Always read thi
 
 The `web2-verifier/` directory is removed from this repository. If you run the web2 verifier, stop it with `docker compose down` in `web2-verifier/` before updating this deployment repo. After updating, remove the `WEB2_IGNITE_API_KEY` and `WEB2_SOURCE_IDS` variables from your `.env` file and delete the leftover `web2-verifier/verifier.env`.
 
-The XRP verifier changes how `BalanceDecreasingTransaction` derives the standard payment reference for XRP transactions from the start of Flare voting round 1508840 on mainnet. Update the XRP verifier before that round.
+The XRP verifier changes how `BalanceDecreasingTransaction` derives the standard payment reference for XRP transactions from 2026-11-09 12:00 UTC on mainnet. Update the XRP verifier before then.
 
 ## \[[v1.4.4](https://github.com/flare-foundation/fdc-suite-deployment/tree/v1.4.4)\] - 2026-09-30
 
